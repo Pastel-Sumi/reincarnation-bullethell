@@ -7,6 +7,7 @@ public class BulletScript : MonoBehaviour
     public float speed = 1f;
     public float bulletLife = 1f; //How long does the bullet keeps being alive.
     public float rotation = 0f;
+    // Comentario de ejemplo
 
     private Vector2 spawnPoint;
     private float timer = 0f;
