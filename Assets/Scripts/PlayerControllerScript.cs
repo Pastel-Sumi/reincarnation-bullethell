@@ -6,6 +6,10 @@ public class PlayerControllerScript : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
+    public Transform bulletSpawnPoint;
+    public GameObject bulletPrefab;
+    public float bulletSpeed = 10;
+
 
     private Vector2 moveDirection;
     private float screenWidth;
@@ -23,6 +27,10 @@ public class PlayerControllerScript : MonoBehaviour
     {
         //Processing Inputs
         ProcessInputs();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Shoot();
+        }
     }
 
     private void FixedUpdate()
@@ -38,7 +46,7 @@ public class PlayerControllerScript : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
 
         moveDirection = new Vector2(moveX, moveY).normalized;
-
+        
     }
 
     void Move()
@@ -71,4 +79,10 @@ public class PlayerControllerScript : MonoBehaviour
             rb.position = position;
         }
     }
+    void Shoot()
+    {
+        var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        bullet.GetComponent<Rigidbody2D>().velocity = bulletSpawnPoint.up * bulletSpeed;
+    }
+
 }
