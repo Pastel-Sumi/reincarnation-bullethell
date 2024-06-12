@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PlayerControllerScript : MonoBehaviour
 {
@@ -9,10 +10,13 @@ public class PlayerControllerScript : MonoBehaviour
     public Transform bulletSpawnPoint;
     public GameObject bulletPrefab;
     public float bulletSpeed = 10;
-
+    public AudioSource clip;
 
     private Vector2 moveDirection;
     private float screenWidth;
+
+    public bool canMove = true;
+    [SerializeField] private Vector2 reboundSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +33,7 @@ public class PlayerControllerScript : MonoBehaviour
         ProcessInputs();
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            clip.Play();
             Shoot();
         }
     }
@@ -36,8 +41,12 @@ public class PlayerControllerScript : MonoBehaviour
     private void FixedUpdate()
     {
         //Physics Calculations
-        Move();
-        TeleportIfNeeded();
+        if (canMove)
+        {
+            Move();
+            TeleportIfNeeded();
+        }
+        
     }
 
     void ProcessInputs()
@@ -83,6 +92,11 @@ public class PlayerControllerScript : MonoBehaviour
     {
         var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         bullet.GetComponent<Rigidbody2D>().velocity = bulletSpawnPoint.up * bulletSpeed;
+    }
+
+    public void Rebound(Vector2 strikePoint)
+    {
+        rb.velocity = new Vector2(reboundSpeed.x, reboundSpeed.y * strikePoint.y);
     }
 
 }
