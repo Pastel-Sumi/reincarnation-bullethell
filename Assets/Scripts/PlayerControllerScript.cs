@@ -96,7 +96,7 @@ public class PlayerControllerScript : MonoBehaviour
 
     public void Rebound(Vector2 strikePoint)
     {
-        rb.velocity = new Vector2(reboundSpeed.x, reboundSpeed.y * strikePoint.y);
+        rb.velocity = new Vector2(reboundSpeed.x, -reboundSpeed.y * strikePoint.y);
     }
 
 }

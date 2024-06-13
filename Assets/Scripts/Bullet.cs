@@ -53,8 +53,21 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        //Destroy(collision.gameObject);
-        collision.gameObject.GetComponent<FightLogic>().takeDamage(20, collision.GetContact(0).normal);
+        // Verificar si el objeto colisionado tiene el componente EnemyLogic
+        EnemyLogic enemy = collision.gameObject.GetComponent<EnemyLogic>();
+        if (enemy != null)
+        {
+            enemy.TakeDamage(20);
+        }
+
+        // Verificar si el objeto colisionado tiene el componente FightLogic (jugador)
+        FightLogic player = collision.gameObject.GetComponent<FightLogic>();
+        if (player != null)
+        {
+            player.takeDamage(20, collision.GetContact(0).normal);
+        }
+
+        // Destruir la bala después de colisionar
         Destroy(gameObject);
     }
 }
