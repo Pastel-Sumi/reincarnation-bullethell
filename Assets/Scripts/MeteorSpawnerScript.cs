@@ -5,34 +5,48 @@ using UnityEngine;
 public class MeteorSpawnerScript : MonoBehaviour
 {
     public GameObject pipe;
-    public float spawnRate = 2;
-    private float timer = 0;
-    public float spawnRadius = 3f;
+    public float spawnRate = 2f;
+    public float xOffset = 3f; // Desplazamiento en el eje X
+    private float timer = 0f;
+
     void Start()
     {
         spawnPipe();
     }
 
-    // Update is called once per frame
     void Update()
-    {   
-        if(timer < spawnRate)
+    {
+        if (timer < spawnRate)
         {
-            timer = timer + Time.deltaTime;
+            timer += Time.deltaTime;
         }
         else
         {
             spawnPipe();
-            timer = 0;
+            timer = 0f;
         }
+        transform.position += Vector3.up * 2.0f * Time.deltaTime;
     }
+
     void spawnPipe()
     {
-        // Calcular una posición aleatoria dentro del radio especificado
-        Vector3 spawnPosition = transform.position + Random.insideUnitSphere * spawnRadius;
-        spawnPosition.z = 0; // Asegurarse de que la posición Z sea la misma que la del spawner
+        // Determinar aleatoriamente si la posición será a la izquierda o a la derecha
+        float xPosition;
+        if (Random.value > 0.5f)
+        {
+            // Generar posición a la derecha
+            xPosition = transform.position.x + xOffset;
+        }
+        else
+        {
+            // Generar posición a la izquierda
+            xPosition = transform.position.x - xOffset;
+        }
 
-        // Instanciar el meteorito en la posición aleatoria generada
-        Instantiate(pipe, spawnPosition, Quaternion.identity);
+        // Mantener la posición Y e Z del spawner
+        Vector3 spawnPosition = new Vector3(xPosition, transform.position.y, transform.position.z);
+
+        // Instanciar el meteorito en la posición generada
+        Instantiate(pipe, spawnPosition, transform.rotation);
     }
 }
