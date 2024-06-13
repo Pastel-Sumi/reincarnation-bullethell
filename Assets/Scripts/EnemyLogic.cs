@@ -8,6 +8,8 @@ public class EnemyLogic : MonoBehaviour
     [SerializeField] private float damage = 1f; // Daño que inflige al jugador
     [SerializeField] private float moveSpeed = 2f; // Velocidad de movimiento hacia arriba
     [SerializeField] private float fireRate = 1f;
+    [SerializeField] private float waitTimeBeforeMoveUpwards = 3f; // Tiempo de espera antes de moverse hacia arriba y disparar
+    private bool canMoveUpwards = false;
     private bool movingRight = true; // Variable para controlar la dirección de movimiento
     private float changeDirectionInterval = 2f; // Intervalo para cambiar la dirección de movimiento
     private float currentDirectionChangeTime = 0f; // Tiempo actual hasta el próximo cambio de dirección
@@ -25,17 +27,30 @@ public class EnemyLogic : MonoBehaviour
         currentDirectionChangeTime = changeDirectionInterval;
         player = GameObject.FindGameObjectWithTag("Player").transform; // Encuentra al jugador por etiqueta
         spriteRenderer = GetComponent<SpriteRenderer>();
-
         originalColor = spriteRenderer.color;
-        // Iniciar el disparo en intervalos regulares
-        InvokeRepeating("FireAtPlayer", 0f, 1f / fireRate);
+
+        // Iniciar la corrutina de espera
+        StartCoroutine(WaitBeforeMoveUpwards());
     }
 
     private void Update()
     {
-        MoveUpwards();
+        if (canMoveUpwards)
+        {
+            MoveUpwards();
+        }
+
         MoveSideways();
         UpdateDirectionChangeTimer();
+    }
+
+    private IEnumerator WaitBeforeMoveUpwards()
+    {
+        yield return new WaitForSeconds(waitTimeBeforeMoveUpwards);
+        canMoveUpwards = true;
+
+        // Iniciar el disparo en intervalos regulares
+        InvokeRepeating("FireAtPlayer", 0f, 1f / fireRate);
     }
 
     // Moverse hacia arriba a una velocidad constante
@@ -43,12 +58,14 @@ public class EnemyLogic : MonoBehaviour
     {
         transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
     }
+
     // Método para moverse de manera lateral (izquierda y derecha)
     private void MoveSideways()
     {
         float direction = movingRight ? 1f : -1f;
         transform.Translate(Vector3.right * direction * moveSpeed * Time.deltaTime);
     }
+
     // Método para disparar hacia la posición del jugador
     private void FireAtPlayer()
     {
@@ -58,7 +75,6 @@ public class EnemyLogic : MonoBehaviour
             Vector2 direction = (player.position - bullet.transform.position).normalized;
             bullet.GetComponent<Rigidbody2D>().velocity = direction * 10f; //
         }
-        
     }
 
     // Método para recibir daño
@@ -68,7 +84,6 @@ public class EnemyLogic : MonoBehaviour
 
         if (life <= 0)
         {
-            
             Debug.Log("Enemy is dead and has been destroyed");
             spriteRenderer.sprite = naveDestruidaSprite;
             Destroy(gameObject, 0.5f);
@@ -105,7 +120,6 @@ public class EnemyLogic : MonoBehaviour
         }
     }
 
-    // Método para intentar esquivar las balas
     private void UpdateDirectionChangeTimer()
     {
         currentDirectionChangeTime -= Time.deltaTime;
