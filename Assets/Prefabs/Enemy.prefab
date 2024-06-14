@@ -151,12 +151,12 @@ MonoBehaviour:
   damage: 1
   moveSpeed: 2
   fireRate: 1
-  targetY: 9
+  waitTimeBeforeMoveUpwards: 3.5
   bulletSpawnPoint: {fileID: 3905542903241691853}
   bulletPrefab: {fileID: 3623226485556693890, guid: 2a02c5b4bed158c43b4e748e3a22a4ce, type: 3}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   damageEffectDuration: 0.5
-  naveDestruidaSprite: {fileID: 0}
+  naveDestruidaSprite: {fileID: 21300000, guid: 8f5c2a55d1f60224880685a64957e3cc, type: 3}
 --- !u!1 &3905542903241691852
 GameObject:
   m_ObjectHideFlags: 0

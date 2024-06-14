@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class FightLogic : MonoBehaviour
@@ -17,6 +18,8 @@ public class FightLogic : MonoBehaviour
     public float damageEffectDuration = 10f;
     private Color originalColor;
     public Sprite naveDestruidaSprite;
+    public GameObject gameOverScreen;
+    public Text gameOverText;
 
 
     private void Start()
@@ -43,10 +46,12 @@ public class FightLogic : MonoBehaviour
 
         if (life <= 0)
         {
-           
+            
             Debug.Log("Player is dead");
             spriteRenderer.sprite = naveDestruidaSprite;
-            Destroy(gameObject, 0.5f);
+            StartCoroutine(GameOverSequence());
+            //Destroy(gameObject, 0.5f);
+            
 
         }
         else
@@ -82,5 +87,23 @@ public class FightLogic : MonoBehaviour
         yield return new WaitForSeconds(damageEffectDuration);
         spriteRenderer.color = originalColor;
         Debug.Log("cambió el color");
+    }
+    private IEnumerator GameOverSequence()
+    {
+        gameOverScreen.SetActive(true);
+        gameOverText.text = "Game Over";
+
+        Debug.Log("Game Over text set");
+
+        yield return new WaitForSeconds(1f);
+
+        gameOverText.text = "Game Over\n...";
+        Debug.Log("... added to text");
+
+        yield return new WaitForSeconds(1f);
+
+        gameOverText.text = "Game Over\n...\nor not";
+        Debug.Log("or not added to text");
+        
     }
 }

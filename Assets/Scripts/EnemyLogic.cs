@@ -62,7 +62,7 @@ public class EnemyLogic : MonoBehaviour
     // Método para moverse de manera lateral (izquierda y derecha)
     private void MoveSideways()
     {
-        float direction = movingRight ? 1f : -1f;
+        float direction = movingRight ? 2f : -2f;
         transform.Translate(Vector3.right * direction * moveSpeed * Time.deltaTime);
     }
 
