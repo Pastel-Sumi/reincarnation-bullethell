@@ -31,7 +31,7 @@ public class PlayerControllerScript : MonoBehaviour
     {
         //Processing Inputs
         ProcessInputs();
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Fire1"))
         {
             clip.Play();
             Shoot();
