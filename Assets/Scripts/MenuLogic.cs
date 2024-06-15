@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StartGame : MonoBehaviour
+public class MenuLogic : MonoBehaviour
 {
     public string LevelName;
 
     public void LoadLevel()
     {
         SceneManager.LoadScene(LevelName);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
