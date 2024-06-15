@@ -31,4 +31,9 @@ public class MenuLogic : MonoBehaviour
     {
         SceneManager.LoadScene("Main_Menu");
     }
+
+    public void Level2()
+    {
+        SceneManager.LoadScene("OnGame2");
+    }
 }

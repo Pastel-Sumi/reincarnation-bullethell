@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -51,8 +52,9 @@ public class FightLogic : MonoBehaviour
         if (life <= 0)
         {
 
-         
+
             spriteRenderer.sprite = naveDestruidaSprite;
+            spriteRenderer.sprite = null;
             StartCoroutine(GameOverSequence());
             //Destroy(gameObject, 0.5f);
             
@@ -109,17 +111,9 @@ public class FightLogic : MonoBehaviour
         gameOverScreen.SetActive(true);
         gameOverText.text = "Game Over";
 
-        Debug.Log("Game Over text set");
 
         yield return new WaitForSeconds(1f);
 
-        gameOverText.text = "Game Over\n...";
-        Debug.Log("... added to text");
-
-        yield return new WaitForSeconds(1f);
-
-        gameOverText.text = "Game Over\n...\nor not";
-        Debug.Log("or not added to text");
         
     }
 }

@@ -78,6 +78,8 @@ public class EnemyLogic : MonoBehaviour
             Vector2 direction = (player.position - bullet.transform.position).normalized;
             bullet.GetComponent<Rigidbody2D>().velocity = direction * 10f; //
         }
+        
+            
     }
 
     // Método para recibir daño

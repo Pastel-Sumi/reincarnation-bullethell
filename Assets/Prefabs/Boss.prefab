@@ -200,8 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 802cea9708f85bb479232337c2528ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 10
-  damage: 10
+  life: 300
   moveSpeed: 5
   fireRate: 1
   waitTimeBeforeMoveUpwards: 5
@@ -209,6 +208,5 @@ MonoBehaviour:
   lootPoint: {fileID: 778276953020601833}
   bulletPrefab: {fileID: 3623226485556693890, guid: 2a02c5b4bed158c43b4e748e3a22a4ce, type: 3}
   loot: {fileID: 3507297164716577572, guid: 75694087ce398d04789068388ef0e7cc, type: 3}
-  heal: {fileID: 0}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   damageEffectDuration: 0.5
