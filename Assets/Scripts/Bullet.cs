@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.LowLevel;
 
 
 public class Bullet : MonoBehaviour
@@ -8,7 +10,16 @@ public class Bullet : MonoBehaviour
     public float life = 3f;
     private Camera mainCamera;
     private float screenHeight;
-   
+    public FightLogic playerFightLogic; 
+    
+
+    private void Start()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        playerFightLogic = player.GetComponent<FightLogic>();
+    }
+
+
     void Awake()
     {
         
@@ -53,15 +64,16 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Verificar si el objeto colisionado tiene el componente EnemyLogic
+       
+        FightLogic player = collision.gameObject.GetComponent<FightLogic>();
         EnemyLogic enemy = collision.gameObject.GetComponent<EnemyLogic>();
+        
         if (enemy != null)
         {
-            enemy.TakeDamage(20);
+            enemy.TakeDamage(playerFightLogic.bulletDamage);
         }
 
-        // Verificar si el objeto colisionado tiene el componente FightLogic (jugador)
-        FightLogic player = collision.gameObject.GetComponent<FightLogic>();
+        
         if (player != null)
         {
             player.takeDamage(20, collision.GetContact(0).normal);

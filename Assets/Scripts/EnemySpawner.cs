@@ -5,8 +5,11 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject pipe;
+    public GameObject Boss;
     public float spawnRate = 2f;
     public float xOffset = 3f; // Desplazamiento en el eje X
+    public int spawnMax = 10;
+    private int enemySpawned = 0;
     private float timer = 0f;
 
     void Start()
@@ -21,9 +24,17 @@ public class EnemySpawner : MonoBehaviour
             timer += Time.deltaTime;
         }
         else
-        {
-            spawnPipe();
-            timer = 0f;
+        {   if(enemySpawned < spawnMax)
+            {
+                spawnPipe();
+                timer = 0f;
+                enemySpawned += 1;
+            }
+            else
+            {
+                spawnBoss();
+            }
+            
         }
         transform.position += Vector3.up * 2.0f * Time.deltaTime;
     }
@@ -48,5 +59,9 @@ public class EnemySpawner : MonoBehaviour
 
         // Instanciar el meteorito en la posición generada
         Instantiate(pipe, spawnPosition, transform.rotation);
+    }
+    void spawnBoss()
+    {
+        Instantiate(Boss, transform.position, Quaternion.identity);
     }
 }

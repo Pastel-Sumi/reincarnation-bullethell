@@ -9,6 +9,7 @@ public class FightLogic : MonoBehaviour
     [SerializeField] private float life;
     private PlayerControllerScript playerController;
     [SerializeField] private float lostControlTime;
+    public float bulletDamage;
     // Variables para la barra de vida
     public Image lifeBar;
     public float maxLife;
@@ -60,6 +61,18 @@ public class FightLogic : MonoBehaviour
             StartCoroutine(DamageEffect());
         }
         
+    }
+    public void Heal(float heal)
+    {
+        if ((life + heal) > maxLife)
+        {
+            life = maxLife;
+        }
+        else
+        {
+            life += heal;
+        }
+        UpdateLifeBar(life);
     }
 
     public void takeDamage(float damage, Vector2 position)

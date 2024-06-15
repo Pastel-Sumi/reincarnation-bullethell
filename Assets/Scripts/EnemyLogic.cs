@@ -17,6 +17,7 @@ public class EnemyLogic : MonoBehaviour
     public Transform lootPoint;
     public GameObject bulletPrefab; // Prefab de la bala a disparar
     public GameObject loot;
+    public GameObject heal;
     private Transform player; // Referencia al jugador
     private SpriteRenderer spriteRenderer;
     public Color damageColor = Color.red;
@@ -92,12 +93,19 @@ public class EnemyLogic : MonoBehaviour
             float probability = 0.3f; // 30% de probabilidad
             if (Random.value < probability)
             {
-                Instantiate(loot, lootPoint.position, Quaternion.identity);
+                int randomLoot = Random.Range(0, 2);
+                switch(randomLoot)
+                {
+                    case 0:
+                        Instantiate(loot, lootPoint.position, Quaternion.identity);
+                        break;
+                    case 1:
+                        Instantiate(heal, lootPoint.position, Quaternion.identity);
+                        break;
+                }
             }
-            
-
         }
-        else
+        
         {
             StartCoroutine(DamageEffect());
         }
