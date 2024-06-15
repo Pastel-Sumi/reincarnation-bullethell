@@ -23,10 +23,10 @@ public class Bullet : MonoBehaviour
     void Awake()
     {
         
-        // Destruir el objeto después de "life" segundos
+        // Destruir el objeto despuï¿½s de "life" segundos
         Destroy(gameObject, life);
 
-        // Referencia a la cámara principal
+        // Referencia a la cï¿½mara principal
         mainCamera = Camera.main;
 
         // Calcular la altura de la pantalla en unidades del mundo
@@ -36,16 +36,16 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        // Teletransportar la bala si cruza los límites superiores o inferiores
+        // Teletransportar la bala si cruza los limites superiores o inferiores
         TeleportIfNeeded();
     }
 
     void TeleportIfNeeded()
     {
-        // Obtener la posición actual de la bala
+        // Obtener la posiciï¿½n actual de la bala
         Vector2 position = transform.position;
 
-        // Obtener la posición Y de la cámara
+        // Obtener la posiciï¿½n Y de la cï¿½mara
         float cameraY = mainCamera.transform.position.y;
 
         // Chequear si la bala ha cruzado el borde superior
@@ -79,7 +79,7 @@ public class Bullet : MonoBehaviour
             player.takeDamage(20, collision.GetContact(0).normal);
         }
 
-        // Destruir la bala después de colisionar
+        // Destruir la bala despuï¿½s de colisionar
         Destroy(gameObject);
     }
 }
