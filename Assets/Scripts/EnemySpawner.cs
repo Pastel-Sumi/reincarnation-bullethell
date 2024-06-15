@@ -11,6 +11,7 @@ public class EnemySpawner : MonoBehaviour
     public int spawnMax = 10;
     private int enemySpawned = 0;
     private float timer = 0f;
+    bool bossFlag = false;
 
     void Start()
     {
@@ -32,7 +33,11 @@ public class EnemySpawner : MonoBehaviour
             }
             else
             {
-                spawnBoss();
+                if (!bossFlag && GameObject.FindGameObjectWithTag("Enemy") == null)
+                {
+                    spawnBoss();
+                    bossFlag = true;
+                }
             }
             
         }

@@ -67,13 +67,17 @@ public class Bullet : MonoBehaviour
        
         FightLogic player = collision.gameObject.GetComponent<FightLogic>();
         EnemyLogic enemy = collision.gameObject.GetComponent<EnemyLogic>();
-        
+        BossLogic boss = collision.gameObject.GetComponent<BossLogic>();
+
         if (enemy != null)
         {
             enemy.TakeDamage(playerFightLogic.bulletDamage);
         }
+        if (boss != null)
+        {
+            boss.TakeDamage(playerFightLogic.bulletDamage);
+        }
 
-        
         if (player != null)
         {
             player.takeDamage(20, collision.GetContact(0).normal);

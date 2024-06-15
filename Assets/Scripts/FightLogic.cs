@@ -24,6 +24,7 @@ public class FightLogic : MonoBehaviour
     
 
 
+
     private void Start()
     {
         playerController = GetComponent<PlayerControllerScript>();
@@ -49,8 +50,8 @@ public class FightLogic : MonoBehaviour
 
         if (life <= 0)
         {
-            
-            Debug.Log("Player is dead");
+
+         
             spriteRenderer.sprite = naveDestruidaSprite;
             StartCoroutine(GameOverSequence());
             //Destroy(gameObject, 0.5f);

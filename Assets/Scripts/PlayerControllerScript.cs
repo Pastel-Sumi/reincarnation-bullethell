@@ -18,6 +18,7 @@ public class PlayerControllerScript : MonoBehaviour
     public float bulletSpeed = 10;
     public int upgrade = 0;
     public AudioSource clip;
+    public AudioSource clipDestroy;
     public SpriteRenderer spriteRenderer;
     public Sprite nave1;
     public Sprite nave2;
