@@ -4,6 +4,7 @@ using System.Diagnostics.Tracing;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class PlayerControllerScript : MonoBehaviour
 {
@@ -47,6 +48,10 @@ public class PlayerControllerScript : MonoBehaviour
         {
             clip.Play();
             Shoot();
+        }
+        if (Input.GetButtonDown("Cancel"))
+        {
+            SceneManager.LoadScene("Main_Menu");
         }
     }
 
