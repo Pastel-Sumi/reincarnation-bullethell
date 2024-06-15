@@ -82,7 +82,7 @@ public class PlayerControllerScript : MonoBehaviour
             hasTeleported = true;
         }
 
-        // Actualizar la posición de la nave si ha cruzado los límites
+        // Actualizar la posición de la nave si ha cruzado los lúŠites
         if (hasTeleported)
         {
             rb.position = position;

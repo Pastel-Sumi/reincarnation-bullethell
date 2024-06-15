@@ -21,6 +21,7 @@ public class FightLogic : MonoBehaviour
     public Sprite naveDestruidaSprite;
     public GameObject gameOverScreen;
     public Text gameOverText;
+    
 
 
     private void Start()
@@ -35,6 +36,7 @@ public class FightLogic : MonoBehaviour
             UpdateLifeBar(life);
         }
         originalColor = spriteRenderer.color;
+        gameOverScreen.SetActive(false);
     }
 
     public void takeDamage(float damage)
@@ -99,7 +101,7 @@ public class FightLogic : MonoBehaviour
         spriteRenderer.color = damageColor;
         yield return new WaitForSeconds(damageEffectDuration);
         spriteRenderer.color = originalColor;
-        Debug.Log("cambiÛ el color");
+        Debug.Log("cambiÅEel color");
     }
     private IEnumerator GameOverSequence()
     {

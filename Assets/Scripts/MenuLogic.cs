@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MenuLogic : MonoBehaviour
 {
     public string LevelName;
-
+   
     public void LoadLevel()
     {
         SceneManager.LoadScene(LevelName);
@@ -15,5 +15,10 @@ public class MenuLogic : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(LevelName);
     }
 }
