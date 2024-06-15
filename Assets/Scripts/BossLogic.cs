@@ -15,15 +15,19 @@ public class BossLogic : MonoBehaviour
     private float changeDirectionInterval = 2f; // Intervalo para cambiar la dirección de movimiento
     private float currentDirectionChangeTime = 0f; // Tiempo actual hasta el próximo cambio de dirección
     public Transform bulletSpawnPoint;
+    public Transform bulletSpawnPoint1;
+    public Transform bulletSpawnPoint2;
     public Transform lootPoint;
     public GameObject bulletPrefab; // Prefab de la bala a disparar
+    public GameObject laser;
     public GameObject loot;
     private Transform player; // Referencia al jugador
     private SpriteRenderer spriteRenderer;
     public Color damageColor = Color.red;
     public float damageEffectDuration = 0.1f;
     private Color originalColor;
-   
+    public Transform laserSpawnPoint;
+
 
     private void Start()
     {
@@ -65,7 +69,7 @@ public class BossLogic : MonoBehaviour
     // Método para moverse de manera lateral (izquierda y derecha)
     private void MoveSideways()
     {
-        float direction = movingRight ? 2f : -2f;
+        float direction = movingRight ? 3f : -3f;
         transform.Translate(Vector3.right * direction * moveSpeed * Time.deltaTime);
     }
 
@@ -76,7 +80,15 @@ public class BossLogic : MonoBehaviour
         {
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
             Vector2 direction = (player.position - bullet.transform.position).normalized;
-            bullet.GetComponent<Rigidbody2D>().velocity = direction * 10f; //
+            bullet.GetComponent<Rigidbody2D>().velocity = direction * 15f; //
+
+            GameObject bullet1 = Instantiate(bulletPrefab, bulletSpawnPoint1.position, Quaternion.identity);
+            Vector2 direction1 = (player.position - bullet1.transform.position).normalized;
+            bullet1.GetComponent<Rigidbody2D>().velocity = direction1 * 15f;
+
+            GameObject bullet2 = Instantiate(bulletPrefab, bulletSpawnPoint2.position, Quaternion.identity);
+            Vector2 direction2 = (player.position - bullet2.transform.position).normalized;
+            bullet2.GetComponent<Rigidbody2D>().velocity = direction2 * 10f;
         }
     }
 
