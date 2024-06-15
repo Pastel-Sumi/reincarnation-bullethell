@@ -14,7 +14,9 @@ public class EnemyLogic : MonoBehaviour
     private float changeDirectionInterval = 2f; // Intervalo para cambiar la dirección de movimiento
     private float currentDirectionChangeTime = 0f; // Tiempo actual hasta el próximo cambio de dirección
     public Transform bulletSpawnPoint;
+    public Transform lootPoint;
     public GameObject bulletPrefab; // Prefab de la bala a disparar
+    public GameObject loot;
     private Transform player; // Referencia al jugador
     private SpriteRenderer spriteRenderer;
     public Color damageColor = Color.red;
@@ -87,6 +89,13 @@ public class EnemyLogic : MonoBehaviour
             Debug.Log("Enemy is dead and has been destroyed");
             spriteRenderer.sprite = naveDestruidaSprite;
             Destroy(gameObject, 0.5f);
+            float probability = 0.3f; // 30% de probabilidad
+            if (Random.value < probability)
+            {
+                Instantiate(loot, lootPoint.position, Quaternion.identity);
+            }
+            
+
         }
         else
         {
