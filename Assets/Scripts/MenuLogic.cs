@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MenuLogic : MonoBehaviour
 {
     public string LevelName;
-   
+    public string menuscene = "InfoScreen";
     public void LoadLevel()
     {
         SceneManager.LoadScene(LevelName);
@@ -20,5 +20,15 @@ public class MenuLogic : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(LevelName);
+    }
+
+    public void InfoMenu()
+    {
+        SceneManager.LoadScene(menuscene);
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("Main_Menu");
     }
 }
