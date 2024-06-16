@@ -22,7 +22,10 @@ public class FightLogic : MonoBehaviour
     public Sprite naveDestruidaSprite;
     public GameObject gameOverScreen;
     public Text gameOverText;
-    
+
+    public Camera mainCamera;
+    public float damageInterval = 1f; // Intervalo de tiempo entre cada daÒo
+    private float lastDamageTime;
 
 
 
@@ -40,7 +43,10 @@ public class FightLogic : MonoBehaviour
         originalColor = spriteRenderer.color;
         gameOverScreen.SetActive(false);
     }
-
+    private void Update()
+    {
+        CheckPlayerOutOfBounds();
+    }
     public void takeDamage(float damage)
     {
         life -= damage;
@@ -66,6 +72,26 @@ public class FightLogic : MonoBehaviour
             StartCoroutine(DamageEffect());
         }
         
+    }
+    private void CheckPlayerOutOfBounds()
+    {
+        
+        Vector3 playerPosition = transform.position;
+
+        // Calcular los lÌmites visibles de la c·mara
+        Vector3 screenBottomLeft = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, mainCamera.nearClipPlane));
+        
+
+        // Verificar si el jugador est· fuera de los lÌmites en la direcciÛn Y (abajo de la c·mara)
+        if (playerPosition.y < screenBottomLeft.y)
+        {
+            // Aplicar daÒo al jugador si ha pasado el intervalo de daÒo
+            if (Time.time - lastDamageTime > damageInterval)
+            {
+                takeDamage(20); // Ajusta la cantidad de daÒo seg˙n sea necesario
+                lastDamageTime = Time.time;
+            }
+        }
     }
     public void Heal(float heal)
     {
@@ -104,7 +130,7 @@ public class FightLogic : MonoBehaviour
         spriteRenderer.color = damageColor;
         yield return new WaitForSeconds(damageEffectDuration);
         spriteRenderer.color = originalColor;
-        Debug.Log("cambiÅEel color");
+        
     }
     private IEnumerator GameOverSequence()
     {

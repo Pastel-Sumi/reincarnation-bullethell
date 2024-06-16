@@ -75,6 +75,7 @@ public class EnemyLogic : MonoBehaviour
         if (bulletPrefab != null && bulletSpawnPoint != null && player != null)
         {
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+            bullet.tag = "EnemyBullet";
             Vector2 direction = (player.position - bullet.transform.position).normalized;
             bullet.GetComponent<Rigidbody2D>().velocity = direction * 10f; //
         }

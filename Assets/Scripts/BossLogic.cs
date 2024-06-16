@@ -28,6 +28,10 @@ public class BossLogic : MonoBehaviour
     private Color originalColor;
     public Transform laserSpawnPoint;
 
+    [SerializeField] private float lateralDistance = 3f; // Distancia lateral para moverse antes de cambiar de dirección
+
+    private Vector3 initialPosition;
+    private Vector3 targetPosition;
 
     private void Start()
     {
@@ -36,6 +40,8 @@ public class BossLogic : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
 
+        initialPosition = transform.position;
+        targetPosition = initialPosition + Vector3.right * lateralDistance;
         // Iniciar la corrutina de espera
         StartCoroutine(WaitBeforeMoveUpwards());
     }
@@ -48,7 +54,11 @@ public class BossLogic : MonoBehaviour
         }
 
         MoveSideways();
-        UpdateDirectionChangeTimer();
+        CheckDirectionChange();
+    }
+    private void MoveUpwards()
+    {
+        transform.Translate(Vector3.up * 2 * Time.deltaTime);
     }
 
     private IEnumerator WaitBeforeMoveUpwards()
@@ -60,16 +70,12 @@ public class BossLogic : MonoBehaviour
         InvokeRepeating("FireAtPlayer", 0f, 1f / fireRate);
     }
 
-    // Moverse hacia arriba a una velocidad constante
-    private void MoveUpwards()
-    {
-        transform.Translate(Vector3.up * 2 * Time.deltaTime);
-    }
+    
 
     // Método para moverse de manera lateral (izquierda y derecha)
     private void MoveSideways()
     {
-        float direction = movingRight ? 3f : -3f;
+        float direction = movingRight ? 1f : -1f;
         transform.Translate(Vector3.right * direction * moveSpeed * Time.deltaTime);
     }
 
@@ -79,14 +85,17 @@ public class BossLogic : MonoBehaviour
         if (bulletPrefab != null && bulletSpawnPoint != null && player != null)
         {
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+            bullet.tag = "EnemyBullet";
             Vector2 direction = (player.position - bullet.transform.position).normalized;
             bullet.GetComponent<Rigidbody2D>().velocity = direction * 15f; //
 
             GameObject bullet1 = Instantiate(bulletPrefab, bulletSpawnPoint1.position, Quaternion.identity);
+            bullet1.tag = "EnemyBullet";
             Vector2 direction1 = (player.position - bullet1.transform.position).normalized;
             bullet1.GetComponent<Rigidbody2D>().velocity = direction1 * 15f;
 
             GameObject bullet2 = Instantiate(bulletPrefab, bulletSpawnPoint2.position, Quaternion.identity);
+            bullet2.tag = "EnemyBullet";
             Vector2 direction2 = (player.position - bullet2.transform.position).normalized;
             bullet2.GetComponent<Rigidbody2D>().velocity = direction2 * 10f;
         }
@@ -95,18 +104,21 @@ public class BossLogic : MonoBehaviour
     // Método para recibir daño
     public void TakeDamage(float damage)
     {
-        life -= damage;
-
-        if (life <= 0)
+        if (canMoveUpwards)
         {
-            Debug.Log("Enemy is dead and has been destroyed");
-            Destroy(gameObject);
-            Instantiate(loot, lootPoint.position, Quaternion.identity);
-        }
+            life -= damage;
 
-        {
-            StartCoroutine(DamageEffect());
+            if (life <= 0)
+            {
+                Destroy(gameObject);
+                Instantiate(loot, lootPoint.position, Quaternion.identity);
+            }
+
+            {
+                StartCoroutine(DamageEffect());
+            }
         }
+        
     }
 
     private IEnumerator DamageEffect()
@@ -123,16 +135,17 @@ public class BossLogic : MonoBehaviour
         }
     }
 
-    private void UpdateDirectionChangeTimer()
+    private void CheckDirectionChange()
     {
-        currentDirectionChangeTime -= Time.deltaTime;
-        if (currentDirectionChangeTime <= 0f)
+        if (movingRight && transform.position.x >= targetPosition.x)
         {
-            // Cambiar la dirección lateral aleatoriamente
-            movingRight = !movingRight;
-
-            // Reiniciar el temporizador de cambio de dirección
-            currentDirectionChangeTime = changeDirectionInterval;
+            movingRight = false;
+            targetPosition = initialPosition + Vector3.left * lateralDistance;
+        }
+        else if (!movingRight && transform.position.x <= targetPosition.x)
+        {
+            movingRight = true;
+            targetPosition = initialPosition + Vector3.right * lateralDistance;
         }
     }
 }
