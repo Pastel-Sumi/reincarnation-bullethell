@@ -444,8 +444,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1838520867}
   m_HandleRect: {fileID: 1838520866}
   m_Direction: 2
-  m_Value: 1.0000001
-  m_Size: 0.26781353
+  m_Value: 1.0000002
+  m_Size: 0.4054179
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1172,8 +1172,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -21, y: -390.2155}
-  m_SizeDelta: {x: 404.7422, y: 1065.8909}
+  m_AnchoredPosition: {x: -21, y: -209.32654}
+  m_SizeDelta: {x: 404.7422, y: 704.1129}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2107283460
 MonoBehaviour:
@@ -1195,11 +1195,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Controles: \n- Movimiento: Flechas de direcci\xF3n /WASD\n- Disparo: Tecla
-    CONTROL. \nEl juego tambi\xE9n soporta joysticks.\n \nEste videojuego fue creado
-    por :\nBastian Lara\nEsteban Manr\xEDquez\nSebastian Valenzuela\n\nPara la USM
-    Valpo Jam 2024-1\nTem\xE1tica: \"Ciclo Vicioso\"\n\nAssets utilizados:\n- Sprites
-    propios.\n- Kenney's Space Shooter Extension (Paquete de sprites gratis).\n-
+  m_text: "Controles: \n- Movimiento: Flechas de direcci\xF3n /WASD.\n- Disparo:
+    Tecla CONTROL/ Bot\xF3n izquierdo del mouse. \n- Bot\xF3n Escape para volver
+    al men\xFA.\nEl juego tambi\xE9n soporta joysticks.\n \nEste videojuego fue creado
+    por :\n- Bastian Lara\n- Esteban Manr\xEDquez\n- Sebastian Valenzuela\n\nPara
+    la USM Valpo Jam 2024-1\nTem\xE1tica: \"Ciclo Vicioso\"\n\nAssets utilizados:\n-
+    Sprites propios.\n- Kenney's Space Shooter Extension (Paquete de sprites gratis).\n-
     SFX gratis de Zapslat\n- M\xFAsica sacada de \n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1263,7 +1264,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: -176.06018}
+  m_margin: {x: 0, y: 0, z: 0, w: 336.73856}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
